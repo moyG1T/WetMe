@@ -1,0 +1,550 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище VeterinaryClinic123Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="VetId" Type="int" Nullable="false" />
+          <Property Name="PetId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="15" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MedicalRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="AppointmentId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="OwnerId" Type="int" />
+          <Property Name="SpeciesId" Type="int" Nullable="false" />
+          <Property Name="Birthdate" Type="date" />
+          <Property Name="GenderId" Type="int" />
+        </EntityType>
+        <EntityType Name="PetGender">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Specialty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Species">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Vet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="15" />
+          <Property Name="SpecialityId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Appointme__VetID__2E1BDC42">
+          <End Role="Vet" Type="Self.Vet" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="VetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointment_Pet">
+          <End Role="Pet" Type="Self.Pet" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="PetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalRecord_Appointment">
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="1" />
+          <End Role="MedicalRecord" Type="Self.MedicalRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appointment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MedicalRecord">
+              <PropertyRef Name="AppointmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pet_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Pet" Type="Self.Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Pet">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pet_PetGender">
+          <End Role="PetGender" Type="Self.PetGender" Multiplicity="0..1" />
+          <End Role="Pet" Type="Self.Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PetGender">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pet">
+              <PropertyRef Name="GenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pet_Species">
+          <End Role="Species" Type="Self.Species" Multiplicity="1" />
+          <End Role="Pet" Type="Self.Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Species">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pet">
+              <PropertyRef Name="SpeciesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vet_Specialty">
+          <End Role="Specialty" Type="Self.Specialty" Multiplicity="1" />
+          <End Role="Vet" Type="Self.Vet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialty">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Vet">
+              <PropertyRef Name="SpecialityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище VeterinaryClinic123ModelContainer">
+          <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MedicalRecord" EntityType="Self.MedicalRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pet" EntityType="Self.Pet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PetGender" EntityType="Self.PetGender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Specialty" EntityType="Self.Specialty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Species" EntityType="Self.Species" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vet" EntityType="Self.Vet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Appointme__VetID__2E1BDC42" Association="Self.FK__Appointme__VetID__2E1BDC42">
+            <End Role="Vet" EntitySet="Vet" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointment_Pet" Association="Self.FK_Appointment_Pet">
+            <End Role="Pet" EntitySet="Pet" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalRecord_Appointment" Association="Self.FK_MedicalRecord_Appointment">
+            <End Role="Appointment" EntitySet="Appointment" />
+            <End Role="MedicalRecord" EntitySet="MedicalRecord" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pet_Client" Association="Self.FK_Pet_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Pet" EntitySet="Pet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pet_PetGender" Association="Self.FK_Pet_PetGender">
+            <End Role="PetGender" EntitySet="PetGender" />
+            <End Role="Pet" EntitySet="Pet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pet_Species" Association="Self.FK_Pet_Species">
+            <End Role="Species" EntitySet="Species" />
+            <End Role="Pet" EntitySet="Pet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vet_Specialty" Association="Self.FK_Vet_Specialty">
+            <End Role="Specialty" EntitySet="Specialty" />
+            <End Role="Vet" EntitySet="Vet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VeterinaryClinic123Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="VetId" Type="Int32" Nullable="false" />
+          <Property Name="PetId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Vet" Relationship="Self.FK__Appointme__VetID__2E1BDC42" FromRole="Appointment" ToRole="Vet" />
+          <NavigationProperty Name="Pet" Relationship="Self.FK_Appointment_Pet" FromRole="Appointment" ToRole="Pet" />
+          <NavigationProperty Name="MedicalRecords" Relationship="Self.FK_MedicalRecord_Appointment" FromRole="Appointment" ToRole="MedicalRecord" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pets" Relationship="Self.FK_Pet_Client" FromRole="Client" ToRole="Pet" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MedicalRecord">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AppointmentId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Appointment" Relationship="Self.FK_MedicalRecord_Appointment" FromRole="MedicalRecord" ToRole="Appointment" />
+        </EntityType>
+        <EntityType Name="Pet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OwnerId" Type="Int32" />
+          <Property Name="SpeciesId" Type="Int32" Nullable="false" />
+          <Property Name="Birthdate" Type="DateTime" Precision="0" />
+          <Property Name="GenderId" Type="Int32" />
+          <NavigationProperty Name="Appointments" Relationship="Self.FK_Appointment_Pet" FromRole="Pet" ToRole="Appointment" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Pet_Client" FromRole="Pet" ToRole="Client" />
+          <NavigationProperty Name="PetGender" Relationship="Self.FK_Pet_PetGender" FromRole="Pet" ToRole="PetGender" />
+          <NavigationProperty Name="Species" Relationship="Self.FK_Pet_Species" FromRole="Pet" ToRole="Species" />
+        </EntityType>
+        <EntityType Name="PetGender">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pets" Relationship="Self.FK_Pet_PetGender" FromRole="PetGender" ToRole="Pet" />
+        </EntityType>
+        <EntityType Name="Specialty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Vets" Relationship="Self.FK_Vet_Specialty" FromRole="Specialty" ToRole="Vet" />
+        </EntityType>
+        <EntityType Name="Species">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Pets" Relationship="Self.FK_Pet_Species" FromRole="Species" ToRole="Pet" />
+        </EntityType>
+        <EntityType Name="Vet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="SpecialityId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Appointments" Relationship="Self.FK__Appointme__VetID__2E1BDC42" FromRole="Vet" ToRole="Appointment" />
+          <NavigationProperty Name="Specialty" Relationship="Self.FK_Vet_Specialty" FromRole="Vet" ToRole="Specialty" />
+        </EntityType>
+        <Association Name="FK__Appointme__VetID__2E1BDC42">
+          <End Role="Vet" Type="Self.Vet" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="VetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Appointment_Pet">
+          <End Role="Pet" Type="Self.Pet" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="PetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MedicalRecord_Appointment">
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="1" />
+          <End Role="MedicalRecord" Type="Self.MedicalRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appointment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MedicalRecord">
+              <PropertyRef Name="AppointmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pet_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Pet" Type="Self.Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Pet">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pet_PetGender">
+          <End Role="PetGender" Type="Self.PetGender" Multiplicity="0..1" />
+          <End Role="Pet" Type="Self.Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PetGender">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pet">
+              <PropertyRef Name="GenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pet_Species">
+          <End Role="Species" Type="Self.Species" Multiplicity="1" />
+          <End Role="Pet" Type="Self.Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Species">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pet">
+              <PropertyRef Name="SpeciesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vet_Specialty">
+          <End Role="Specialty" Type="Self.Specialty" Multiplicity="1" />
+          <End Role="Vet" Type="Self.Vet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialty">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Vet">
+              <PropertyRef Name="SpecialityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VeterinaryClinicEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Appointments" EntityType="Self.Appointment" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="MedicalRecords" EntityType="Self.MedicalRecord" />
+          <EntitySet Name="Pets" EntityType="Self.Pet" />
+          <EntitySet Name="PetGenders" EntityType="Self.PetGender" />
+          <EntitySet Name="Specialties" EntityType="Self.Specialty" />
+          <EntitySet Name="Species" EntityType="Self.Species" />
+          <EntitySet Name="Vets" EntityType="Self.Vet" />
+          <AssociationSet Name="FK__Appointme__VetID__2E1BDC42" Association="Self.FK__Appointme__VetID__2E1BDC42">
+            <End Role="Vet" EntitySet="Vets" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Appointment_Pet" Association="Self.FK_Appointment_Pet">
+            <End Role="Pet" EntitySet="Pets" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MedicalRecord_Appointment" Association="Self.FK_MedicalRecord_Appointment">
+            <End Role="Appointment" EntitySet="Appointments" />
+            <End Role="MedicalRecord" EntitySet="MedicalRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pet_Client" Association="Self.FK_Pet_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Pet" EntitySet="Pets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pet_PetGender" Association="Self.FK_Pet_PetGender">
+            <End Role="PetGender" EntitySet="PetGenders" />
+            <End Role="Pet" EntitySet="Pets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pet_Species" Association="Self.FK_Pet_Species">
+            <End Role="Species" EntitySet="Species" />
+            <End Role="Pet" EntitySet="Pets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vet_Specialty" Association="Self.FK_Vet_Specialty">
+            <End Role="Specialty" EntitySet="Specialties" />
+            <End Role="Vet" EntitySet="Vets" />
+          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="VeterinaryClinic123Model.sysdiagram" />
+        </EntityContainer>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище VeterinaryClinic123ModelContainer" CdmEntityContainer="VeterinaryClinicEntities">
+          <EntitySetMapping Name="Appointments">
+            <EntityTypeMapping TypeName="VeterinaryClinic123Model.Appointment">
+              <MappingFragment StoreEntitySet="Appointment">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="VetId" ColumnName="VetId" />
+                <ScalarProperty Name="PetId" ColumnName="PetId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="VeterinaryClinic123Model.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MedicalRecords">
+            <EntityTypeMapping TypeName="VeterinaryClinic123Model.MedicalRecord">
+              <MappingFragment StoreEntitySet="MedicalRecord">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="AppointmentId" ColumnName="AppointmentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pets">
+            <EntityTypeMapping TypeName="VeterinaryClinic123Model.Pet">
+              <MappingFragment StoreEntitySet="Pet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="SpeciesId" ColumnName="SpeciesId" />
+                <ScalarProperty Name="Birthdate" ColumnName="Birthdate" />
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PetGenders">
+            <EntityTypeMapping TypeName="VeterinaryClinic123Model.PetGender">
+              <MappingFragment StoreEntitySet="PetGender">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specialties">
+            <EntityTypeMapping TypeName="VeterinaryClinic123Model.Specialty">
+              <MappingFragment StoreEntitySet="Specialty">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Species">
+            <EntityTypeMapping TypeName="VeterinaryClinic123Model.Species">
+              <MappingFragment StoreEntitySet="Species">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vets">
+            <EntityTypeMapping TypeName="VeterinaryClinic123Model.Vet">
+              <MappingFragment StoreEntitySet="Vet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="SpecialityId" ColumnName="SpecialityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="VeterinaryClinic123Model.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

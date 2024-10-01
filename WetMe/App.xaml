@@ -1,0 +1,46 @@
+﻿<Application x:Class="WetMe.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WetMe"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Margin" Value="8 2 8 2"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+        <Style TargetType="PasswordBox">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+
+        <Style TargetType="Button" x:Key="ElevatedButton">
+            <Setter Property="Background" Value="Purple"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Content" Value="Кнопка"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Margin="10 2 10 2">
+                            <Border x:Name="TemplateBorder" Background="{TemplateBinding Background}" CornerRadius="10"/>
+                            <Border x:Name="TintBorder" Background="Black" Opacity="0" CornerRadius="10"/>
+                            <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" Margin="10 4 10 4"/>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="TintBorder" Property="Opacity" Value="0.2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Application.Resources>
+</Application>
