@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WetMe.Presentation.Pages;
+using WetMe.Properties;
 
 namespace WetMe
 {
@@ -25,7 +26,14 @@ namespace WetMe
         {
             InitializeComponent();
 
-            MainFrame.Navigate(new AuthPage());
+            if (Settings.Default.IsVet && Settings.Default.LoggedUser != 0)
+            {
+                MainFrame.Navigate(new VetsClient());
+            }
+            else
+            {
+                MainFrame.Navigate(new AuthPage());
+            }
         }
     }
 }

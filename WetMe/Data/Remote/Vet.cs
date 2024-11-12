@@ -24,10 +24,11 @@ namespace WetMe.Data.Remote
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Phone { get; set; }
+        public string Password { get; set; }
         public int SpecialityId { get; set; }
     
+        public virtual Specialty Specialty { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Appointment> Appointments { get; set; }
-        public virtual Specialty Specialty { get; set; }
     }
 }

@@ -24,6 +24,7 @@ namespace WetMe.Data.Remote
         public System.DateTime Date { get; set; }
         public int VetId { get; set; }
         public int PetId { get; set; }
+        public bool IsRemoved { get; set; }
     
         public virtual Vet Vet { get; set; }
         public virtual Pet Pet { get; set; }

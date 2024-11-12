@@ -8,8 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using WetMe.Data.Remote;
-
 namespace WetMe.Properties {
     
     
@@ -34,6 +32,18 @@ namespace WetMe.Properties {
             }
             set {
                 this["LoggedUser"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsVet {
+            get {
+                return ((bool)(this["IsVet"]));
+            }
+            set {
+                this["IsVet"] = value;
             }
         }
     }

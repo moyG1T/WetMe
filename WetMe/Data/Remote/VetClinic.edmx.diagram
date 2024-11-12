@@ -5,22 +5,22 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="721a8d7dfdd148b49f1a177f59d36952" Name="Diagram1">
-        <EntityTypeShape EntityType="VeterinaryClinic123Model.Appointment" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="VeterinaryClinic123Model.Client" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="VeterinaryClinic123Model.MedicalRecord" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="VeterinaryClinic123Model.Pet" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="VeterinaryClinic123Model.PetGender" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VeterinaryClinic123Model.Specialty" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
         <EntityTypeShape EntityType="VeterinaryClinic123Model.Species" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="VeterinaryClinic123Model.Vet" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
-        <AssociationConnector Association="VeterinaryClinic123Model.FK__Appointme__VetID__2E1BDC42" ManuallyRouted="false" />
-        <AssociationConnector Association="VeterinaryClinic123Model.FK_Appointment_Pet" ManuallyRouted="false" />
-        <AssociationConnector Association="VeterinaryClinic123Model.FK_MedicalRecord_Appointment" ManuallyRouted="false" />
         <AssociationConnector Association="VeterinaryClinic123Model.FK_Pet_Client" ManuallyRouted="false" />
         <AssociationConnector Association="VeterinaryClinic123Model.FK_Pet_PetGender" ManuallyRouted="false" />
         <AssociationConnector Association="VeterinaryClinic123Model.FK_Pet_Species" ManuallyRouted="false" />
-        <AssociationConnector Association="VeterinaryClinic123Model.FK_Vet_Specialty" ManuallyRouted="false" />
         <EntityTypeShape EntityType="VeterinaryClinic123Model.sysdiagram" Width="1.5" PointX="3.375" PointY="4.75" />
+        <EntityTypeShape EntityType="VeterinaryClinic123Model.Vet" Width="1.5" PointX="3" PointY="10.125" />
+        <AssociationConnector Association="VeterinaryClinic123Model.FK_Vet_Specialty" />
+        <EntityTypeShape EntityType="VeterinaryClinic123Model.Appointment" Width="1.5" PointX="6.25" PointY="5.625" />
+        <AssociationConnector Association="VeterinaryClinic123Model.FK__Appointme__VetID__2E1BDC42" />
+        <AssociationConnector Association="VeterinaryClinic123Model.FK_Appointment_Pet" />
+        <AssociationConnector Association="VeterinaryClinic123Model.FK_MedicalRecord_Appointment" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

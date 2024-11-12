@@ -25,14 +25,14 @@ namespace WetMe.Data.Remote
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Appointment> Appointments { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<MedicalRecord> MedicalRecords { get; set; }
         public virtual DbSet<Pet> Pets { get; set; }
         public virtual DbSet<PetGender> PetGenders { get; set; }
         public virtual DbSet<Specialty> Specialties { get; set; }
         public virtual DbSet<Species> Species { get; set; }
-        public virtual DbSet<Vet> Vets { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Vet> Vets { get; set; }
+        public virtual DbSet<Appointment> Appointments { get; set; }
     }
 }

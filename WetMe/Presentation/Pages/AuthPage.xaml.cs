@@ -32,20 +32,32 @@ namespace WetMe.Presentation.Pages
             string phone = PhoneBox.Text;
             string password = PasswordBox.Password;
 
-            MessageBox.Show(await SearchUser(phone, password) ? "Успех" : "Нет");
+            if (await SearchUser(phone, password))
+            {
+                NavigationService.Navigate(new VetsClient());
+            }
         }
 
         private async Task<bool> SearchUser(string phone, string password)
         {
             var client = await App.db.Clients.FirstOrDefaultAsync(c => c.Phone == phone && c.Password == password);
+            var vet = await App.db.Vets.FirstOrDefaultAsync(c => c.Phone == phone && c.Password == password);
 
-            if (client is null)
+            if (client is null && vet is null)
             {
                 return false;
             }
-            else
+            else if (vet is null)
             {
                 Settings.Default.LoggedUser = client.ClientID;
+                Settings.Default.Save();
+
+                return true;
+            }
+            else
+            {
+                Settings.Default.LoggedUser = vet.Id;
+                Settings.Default.IsVet = true;
                 Settings.Default.Save();
 
                 return true;

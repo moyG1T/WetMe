@@ -118,6 +118,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Presentation\Pages\AddMedicalRecordPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Presentation\Pages\AuthPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -126,13 +130,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Presentation\Pages\VetsClient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Presentation\Pages\AddMedicalRecordPage.xaml.cs">
+      <DependentUpon>AddMedicalRecordPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\Pages\AuthPage.xaml.cs">
       <DependentUpon>AuthPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Presentation\Pages\RegistPage.xaml.cs">
       <DependentUpon>RegistPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\Pages\VetsClient.xaml.cs">
+      <DependentUpon>VetsClient.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
