@@ -14,7 +14,8 @@
             <RowDefinition Height="7*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="VetFisrNameTB" Text="{Binding Vet.FirstName}" VerticalAlignment="Center" FontSize="30" />
+        <TextBlock x:Name="VetFisrNameTB" Text="{Binding Vet.FirstName}" VerticalAlignment="Center" FontSize="30"/>
+        <Button Content="Выйти" HorizontalAlignment="Right" VerticalAlignment="Center" Click="Button_Click_3" Style="{StaticResource ElevatedButton}"/>
 
         <ListView Grid.Row="1" Name="VetsClientList" ItemsSource="{Binding Appointments}">
             <ListView.View>
@@ -46,9 +47,9 @@
         </ListView>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="Поставить диагноз" Click="Button_Click"/>
-            <Button Content="Скрыть" Click="Button_Click_1" Margin="20 0"/>
-            <Button Content="Показать скрытые" Click="Button_Click_2"/>
+            <Button Content="Поставить диагноз" Click="Button_Click" Style="{StaticResource ElevatedButton}"/>
+            <Button Content="Скрыть" Click="Button_Click_1" Margin="10 0" Style="{StaticResource ElevatedButton}"/>
+            <Button Content="Показать скрытые" Click="Button_Click_2" Style="{StaticResource ElevatedButton}"/>
         </StackPanel>
     </Grid>
 </Page>

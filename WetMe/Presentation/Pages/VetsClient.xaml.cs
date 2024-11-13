@@ -36,19 +36,12 @@ namespace WetMe.Presentation.Pages
             Loaded += OnLoaded;
         }
 
-        ~VetsClient()
-        {
-            Loaded -= OnLoaded;
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (Settings.Default.IsVet)
-            {
-                await LoadContent();
-            }
+            await LoadContent();
         }
 
         private async Task LoadContent()
@@ -68,7 +61,10 @@ namespace WetMe.Presentation.Pages
             var app = VetsClientList.SelectedItem as Appointment;
             if (app != null)
             {
-                NavigationService.Navigate(new AddMedicalRecordPage(app.Id));
+                if (app.IsRemoved == false)
+                {
+                    NavigationService.Navigate(new AddMedicalRecordPage(app.Id));
+                }
             }
         }
 
@@ -88,8 +84,16 @@ namespace WetMe.Presentation.Pages
         {
             var list = await App.db.Appointments.Where(it => it.VetId == Vet.Id).ToListAsync();
 
+            list.ForEach(it => it.IsRemoved = false);
+            await App.db.SaveChangesAsync();
+
             Appointments = new ObservableCollection<Appointment>(list);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Appointments)));
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AuthPage());
         }
     }
 }

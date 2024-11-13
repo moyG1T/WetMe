@@ -26,9 +26,16 @@ namespace WetMe
         {
             InitializeComponent();
 
+            //Settings.Default.Reset();
+            //Settings.Default.Save();
+
             if (Settings.Default.IsVet && Settings.Default.LoggedUser != 0)
             {
                 MainFrame.Navigate(new VetsClient());
+            }
+            else if (!Settings.Default.IsVet && Settings.Default.LoggedUser != 0)
+            {
+                MainFrame.Navigate(new ClientPage());
             }
             else
             {

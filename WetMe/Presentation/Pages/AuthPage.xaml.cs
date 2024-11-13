@@ -25,6 +25,9 @@ namespace WetMe.Presentation.Pages
         public AuthPage()
         {
             InitializeComponent();
+
+            Settings.Default.Reset();
+            Settings.Default.Save();
         }
 
         private async void AuthButton_Click(object sender, RoutedEventArgs e)
@@ -34,7 +37,14 @@ namespace WetMe.Presentation.Pages
 
             if (await SearchUser(phone, password))
             {
-                NavigationService.Navigate(new VetsClient());
+                if (Settings.Default.IsVet)
+                {
+                    NavigationService.Navigate(new VetsClient());
+                }
+                else
+                {
+                    NavigationService.Navigate(new ClientPage());
+                }
             }
         }
 
@@ -50,6 +60,7 @@ namespace WetMe.Presentation.Pages
             else if (vet is null)
             {
                 Settings.Default.LoggedUser = client.ClientID;
+                Settings.Default.IsVet = false;
                 Settings.Default.Save();
 
                 return true;
