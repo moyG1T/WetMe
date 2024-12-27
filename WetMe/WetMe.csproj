@@ -196,6 +196,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Data\123.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="Data\Remote\VetClinic.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>VetClinic.Context.cs</LastGenOutput>
